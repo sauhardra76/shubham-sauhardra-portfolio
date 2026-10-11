@@ -1,6 +1,6 @@
 import React from 'react';
 import { PORTFOLIO_DATA } from '../config/portfolioData';
-import { ArrowUp, Shield, Phone, Mail, MessageCircle, Linkedin, Camera } from 'lucide-react';
+import { ArrowUp, Shield, Phone, Mail, MessageCircle, Linkedin } from 'lucide-react';
 import { useCustomLogo } from '../hooks/useCustomLogo';
 import { GitHubActivity } from './GitHubActivity';
 
@@ -9,7 +9,7 @@ interface FooterProps {
   onOpenLogoModal?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenLogoModal }) => {
+export const Footer: React.FC<FooterProps> = () => {
   const { personal } = PORTFOLIO_DATA;
   const { logoUrl } = useCustomLogo();
 
@@ -24,12 +24,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLogoModal }) => {
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3.5">
-              <button
-                type="button"
-                onClick={onOpenLogoModal}
-                title="Click to customize logo"
-                className="w-10 h-10 rounded-xl bg-[#090C16] border border-sky-500/40 flex items-center justify-center shadow-[0_0_12px_rgba(56,189,248,0.15)] overflow-hidden group cursor-pointer relative hover:border-sky-400 transition-colors"
-              >
+              <div className="w-10 h-10 rounded-xl bg-[#090C16] border border-sky-500/40 flex items-center justify-center shadow-[0_0_12px_rgba(56,189,248,0.15)] overflow-hidden">
                 {logoUrl ? (
                   <img
                     src={logoUrl}
@@ -40,10 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLogoModal }) => {
                 ) : (
                   <span className="font-mono text-base font-extrabold text-sky-400">SS</span>
                 )}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-sky-300">
-                  <Camera className="w-3.5 h-3.5" />
-                </div>
-              </button>
+              </div>
               <div>
                 <span className="text-base font-bold text-white block">
                   {personal.name}
@@ -174,7 +166,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLogoModal }) => {
 
         {/* GitHub Deployment & Continuous Delivery Telemetry */}
         <div className="py-8 border-b border-white/[0.08]">
-          <GitHubActivity repoOwner="shubhamsauhardra" repoName="it-portfolio" />
+          <GitHubActivity repoOwner="sauhardra76" repoName="shubham-sauhardra-portfolio" />
         </div>
 
         {/* Bottom Bar: Copyright & Scroll to Top */}

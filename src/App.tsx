@@ -17,7 +17,6 @@ import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { ScreenshotLightbox } from './components/ScreenshotLightbox';
 import { PdfModal } from './components/PdfModal';
-import { UploadLogoModal } from './components/UploadLogoModal';
 import { CyberBackground3D } from './components/CyberBackground3D';
 import { AndroidAppItem, CrmProjectItem } from './config/portfolioData';
 
@@ -32,7 +31,6 @@ export default function App() {
     src: string;
   } | null>(null);
   const [pdfModalOpen, setPdfModalOpen] = useState(false);
-  const [logoModalOpen, setLogoModalOpen] = useState(false);
   const [selectedServiceForInquiry, setSelectedServiceForInquiry] = useState('Website Development');
 
   const handleSelectServiceForInquiry = (serviceTitle: string) => {
@@ -66,16 +64,12 @@ export default function App() {
       <div className="fixed bottom-0 left-1/3 w-[600px] h-[600px] bg-blue-600/[0.03] rounded-full blur-[140px] pointer-events-none -z-10" />
 
       {/* Top Navigation */}
-      <Navbar
-        onOpenLogoModal={() => setLogoModalOpen(true)}
-      />
+      <Navbar />
 
       {/* Main Content Sections */}
       <main className="flex-1">
         {/* 1. Hero Section */}
-        <Hero
-          onOpenLogoModal={() => setLogoModalOpen(true)}
-        />
+        <Hero />
 
         {/* 2. About Me */}
         <About />
@@ -108,9 +102,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer
-        onOpenLogoModal={() => setLogoModalOpen(true)}
-      />
+      <Footer />
 
       {/* Modals & Dialogs */}
       <ProjectModal
@@ -130,11 +122,6 @@ export default function App() {
       <PdfModal
         isOpen={pdfModalOpen}
         onClose={() => setPdfModalOpen(false)}
-      />
-
-      <UploadLogoModal
-        isOpen={logoModalOpen}
-        onClose={() => setLogoModalOpen(false)}
       />
     </div>
   );

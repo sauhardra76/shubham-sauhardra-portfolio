@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Terminal, Copy, Check, Code2, Server, ShieldCheck, Cpu, Smartphone, Database, Globe, Sparkles, Camera } from 'lucide-react';
+import { Terminal, Copy, Check, Code2, Server, ShieldCheck, Cpu, Smartphone, Database, Globe, Sparkles } from 'lucide-react';
 import { useCustomLogo } from '../hooks/useCustomLogo';
 
 interface DeveloperProfileCardProps {
   onOpenLogoModal?: () => void;
 }
 
-export const DeveloperProfileCard: React.FC<DeveloperProfileCardProps> = ({ onOpenLogoModal }) => {
+export const DeveloperProfileCard: React.FC<DeveloperProfileCardProps> = () => {
   const [activeTab, setActiveTab] = useState<'profile' | 'stack' | 'specs'>('profile');
   const [copied, setCopied] = useState(false);
   const { logoUrl } = useCustomLogo();
@@ -92,12 +92,7 @@ const engineer = {
           <div className="space-y-3 font-mono">
             {/* Visual Developer Identity Badge */}
             <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] not-italic">
-              <button
-                type="button"
-                onClick={onOpenLogoModal}
-                title="Click to upload your image or change photo"
-                className="w-11 h-11 rounded-xl bg-[#05070E] border border-sky-400/50 flex items-center justify-center overflow-hidden relative cursor-pointer hover:border-sky-300 transition-all shadow-[0_0_14px_rgba(56,189,248,0.2)] shrink-0 group/av"
-              >
+              <div className="w-11 h-11 rounded-xl bg-[#05070E] border border-sky-400/50 flex items-center justify-center overflow-hidden shadow-[0_0_14px_rgba(56,189,248,0.2)] shrink-0">
                 {logoUrl ? (
                   <img
                     src={logoUrl}
@@ -108,21 +103,14 @@ const engineer = {
                 ) : (
                   <span className="font-mono text-sm font-extrabold text-sky-400">&gt;_</span>
                 )}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/av:opacity-100 flex items-center justify-center transition-opacity text-sky-300">
-                  <Camera className="w-3.5 h-3.5" />
-                </div>
-              </button>
+              </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-white font-bold text-xs truncate">Shubham Sauhardra</span>
-                  <button
-                    type="button"
-                    onClick={onOpenLogoModal}
-                    className="text-[10px] text-sky-400 hover:text-sky-300 flex items-center gap-1 cursor-pointer font-sans"
-                  >
-                    <Camera className="w-2.5 h-2.5" />
-                    <span>{logoUrl ? 'Change image' : 'Upload image'}</span>
-                  </button>
+                  <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>VERIFIED</span>
+                  </span>
                 </div>
                 <span className="text-slate-400 text-[10px] block truncate">
                   Full-Stack &amp; Android Specialist

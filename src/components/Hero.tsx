@@ -9,7 +9,7 @@ interface HeroProps {
   onOpenLogoModal?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenLogoModal }) => {
+export const Hero: React.FC<HeroProps> = () => {
   const { personal } = PORTFOLIO_DATA;
 
   return (
@@ -91,7 +91,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenLogoModal }) => {
 
           {/* Right Column: Developer Profile & Architecture Card */}
           <ScrollReveal direction="up" distance={20} delay={180} duration={650} className="lg:col-span-5 flex flex-col items-center">
-            <DeveloperProfileCard onOpenLogoModal={onOpenLogoModal} />
+            <DeveloperProfileCard />
           </ScrollReveal>
         </div>
       </div>

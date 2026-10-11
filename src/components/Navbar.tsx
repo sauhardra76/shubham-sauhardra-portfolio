@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PORTFOLIO_DATA } from '../config/portfolioData';
-import { Menu, X, ArrowUpRight, Compass, Camera } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { useCustomLogo } from '../hooks/useCustomLogo';
 
 interface NavbarProps {
@@ -8,7 +8,7 @@ interface NavbarProps {
   onOpenLogoModal?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenLogoModal }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { personal } = PORTFOLIO_DATA;
   const { logoUrl } = useCustomLogo();
@@ -44,45 +44,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenLogoModal }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-8">
-        {/* Zone 1: Brand Wordmark with Developer IDE Badge & Custom Logo */}
+        {/* Zone 1: Brand Wordmark with Developer IDE Badge */}
         <div className="flex items-center gap-3.5 whitespace-nowrap shrink-0">
-          {/* Logo Container with Upload Trigger */}
-          <div className="relative group/logo">
-            <button
-              type="button"
-              onClick={onOpenLogoModal}
-              title="Click to upload your image or change logo"
-              aria-label="Upload custom image to logo"
-              className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0A1022] to-[#04060C] border border-sky-500/50 flex items-center justify-center shadow-[0_0_18px_rgba(56,189,248,0.2)] hover:border-sky-400 hover:shadow-[0_0_24px_rgba(56,189,248,0.4)] transition-all overflow-hidden cursor-pointer relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-            >
-              {logoUrl ? (
-                <img
-                  src={logoUrl}
-                  alt={`${personal.name} Logo`}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <span className="font-mono text-sm font-extrabold text-sky-400 tracking-tighter">
-                  &gt;_
-                </span>
-              )}
-
-              {/* Hover Overlay with Camera Icon */}
-              <div className="absolute inset-0 bg-[#05070D]/75 opacity-0 group-hover/logo:opacity-100 flex items-center justify-center transition-opacity text-sky-300">
-                <Camera className="w-4 h-4 text-sky-300" />
-              </div>
-            </button>
-
-            {/* Small Camera Badge */}
-            <button
-              type="button"
-              onClick={onOpenLogoModal}
-              title="Upload photo / logo"
-              className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-sky-500 hover:bg-sky-400 border border-[#05070D] flex items-center justify-center shadow-xs cursor-pointer transition-transform hover:scale-110"
-            >
-              <Camera className="w-2.5 h-2.5 text-slate-950 font-bold" />
-            </button>
+          {/* Static Brand Logo */}
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0A1022] to-[#04060C] border border-sky-500/50 flex items-center justify-center shadow-[0_0_18px_rgba(56,189,248,0.2)] overflow-hidden">
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt={`${personal.name} Logo`}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="font-mono text-sm font-extrabold text-sky-400 tracking-tighter">
+                &gt;_
+              </span>
+            )}
           </div>
 
           <a
@@ -155,19 +132,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenLogoModal }) => {
             ))}
           </div>
           <div className="pt-3 border-t border-white/[0.08] flex flex-col gap-2">
-            {onOpenLogoModal && (
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenLogoModal();
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-mono font-medium rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-400/30 transition-colors cursor-pointer"
-              >
-                <Camera className="w-3.5 h-3.5 text-sky-400" />
-                <span>Upload Custom Logo / Photo</span>
-              </button>
-            )}
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
