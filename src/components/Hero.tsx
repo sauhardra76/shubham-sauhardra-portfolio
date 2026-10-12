@@ -4,12 +4,7 @@ import { ArrowDown, Layers, PhoneCall, Compass, Sparkles } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
 import { DeveloperProfileCard } from './DeveloperProfileCard';
 
-interface HeroProps {
-  onOpenPdfModal?: () => void;
-  onOpenLogoModal?: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = () => {
+export const Hero: React.FC = () => {
   const { personal } = PORTFOLIO_DATA;
 
   return (

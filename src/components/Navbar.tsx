@@ -3,12 +3,7 @@ import { PORTFOLIO_DATA } from '../config/portfolioData';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { useCustomLogo } from '../hooks/useCustomLogo';
 
-interface NavbarProps {
-  onOpenPdfModal?: () => void;
-  onOpenLogoModal?: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = () => {
+export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { personal } = PORTFOLIO_DATA;
   const { logoUrl } = useCustomLogo();
@@ -25,24 +20,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#05070D]/90 backdrop-blur-xl border-b border-sky-500/20 text-white transition-all font-mono">
-      {/* Topmost Developer Telemetry Ticker Bar */}
-      <div className="bg-[#030408] border-b border-white/[0.05] px-4 py-1 text-[10px] text-slate-400 flex items-center justify-between overflow-x-auto whitespace-nowrap">
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>NODE: ACTIVE (linux-arm64)</span>
-          </span>
-          <span className="hidden sm:inline text-slate-600">|</span>
-          <span className="hidden sm:inline text-sky-300">GIT: main* (v2.8.4)</span>
-          <span className="hidden md:inline text-slate-600">|</span>
-          <span className="hidden md:inline text-indigo-300">CPU LOAD: 1.8%</span>
-        </div>
-        <div className="flex items-center gap-3 text-slate-400">
-          <span className="text-amber-400 font-bold">SYS_LATENCY: 12ms</span>
-          <span>UPTIME: 99.98%</span>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-8">
         {/* Zone 1: Brand Wordmark with Developer IDE Badge */}
         <div className="flex items-center gap-3.5 whitespace-nowrap shrink-0">

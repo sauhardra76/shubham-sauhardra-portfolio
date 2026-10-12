@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { Terminal, Copy, Check, Code2, Server, ShieldCheck, Cpu, Smartphone, Database, Globe, Sparkles } from 'lucide-react';
 import { useCustomLogo } from '../hooks/useCustomLogo';
 
-interface DeveloperProfileCardProps {
-  onOpenLogoModal?: () => void;
-}
-
-export const DeveloperProfileCard: React.FC<DeveloperProfileCardProps> = () => {
+export const DeveloperProfileCard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'profile' | 'stack' | 'specs'>('profile');
   const [copied, setCopied] = useState(false);
   const { logoUrl } = useCustomLogo();

@@ -4,12 +4,7 @@ import { ArrowUp, Shield, Phone, Mail, MessageCircle, Linkedin } from 'lucide-re
 import { useCustomLogo } from '../hooks/useCustomLogo';
 import { GitHubActivity } from './GitHubActivity';
 
-interface FooterProps {
-  onOpenPdfModal?: () => void;
-  onOpenLogoModal?: () => void;
-}
-
-export const Footer: React.FC<FooterProps> = () => {
+export const Footer: React.FC = () => {
   const { personal } = PORTFOLIO_DATA;
   const { logoUrl } = useCustomLogo();
 
