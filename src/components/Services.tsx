@@ -1,6 +1,6 @@
 import React from 'react';
 import { PORTFOLIO_DATA, ServiceItem } from '../config/portfolioData';
-import { Globe, Database, Search, Headphones, Smartphone, Cpu, Coins, ArrowRight, Sparkles } from 'lucide-react';
+import { Globe, Database, Search, Headphones, Smartphone, Cpu, Coins, Shield, ArrowRight, Sparkles } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
 import { Card3D } from './Card3D';
 
@@ -15,6 +15,8 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForInquiry })
     switch (iconName) {
       case 'Globe':
         return <Globe className="w-6 h-6 text-sky-500" />;
+      case 'Shield':
+        return <Shield className="w-6 h-6 text-sky-500" />;
       case 'Coins':
       case 'Blocks':
       case 'Wallet':

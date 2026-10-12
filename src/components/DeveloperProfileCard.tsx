@@ -149,6 +149,7 @@ const engineer = {
               </p>
               <div className="pl-4 space-y-0.5 text-amber-300">
                 <p>"Modern Web &amp; SaaS Systems",</p>
+                <p>"Cyber Security &amp; Network Defense",</p>
                 <p>"Native Android Architecture",</p>
                 <p>"Enterprise CRM &amp; Automation",</p>
                 <p>"Web3 / Smart Contract Integration"</p>
@@ -183,11 +184,24 @@ const engineer = {
 
               <div className="p-2.5 rounded-lg bg-black/40 border border-white/[0.05]">
                 <div className="text-[11px] text-emerald-400 font-bold mb-1.5 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5" /> Cyber Security &amp; Network
+                </div>
+                <div className="flex flex-wrap gap-1.5 text-[10px]">
+                  {['Wireshark', 'Burp Suite', 'Nmap', 'pfSense', 'OWASP Top 10', 'SSL/TLS', 'Kali Linux'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-2.5 rounded-lg bg-black/40 border border-white/[0.05]">
+                <div className="text-[11px] text-sky-400 font-bold mb-1.5 flex items-center gap-1.5">
                   <Smartphone className="w-3.5 h-3.5" /> Android Ecosystem
                 </div>
                 <div className="flex flex-wrap gap-1.5 text-[10px]">
                   {['Kotlin', 'Jetpack Compose', 'MVVM / MVI', 'Room DB', 'Coroutines', 'Native NDK'].map((t) => (
-                    <span key={t} className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                    <span key={t} className="px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">
                       {t}
                     </span>
                   ))}

@@ -17,10 +17,31 @@ export const Skills3DSphere: React.FC = () => {
   const [selectedSkill, setSelectedSkill] = useState<TechnicalSkill>(skills[0]);
   const [viewMode, setViewMode] = useState<'sphere3d' | 'matrix'>('sphere3d');
 
-  // Filter skills
-  const filteredSkills = activeCategory === 'All'
-    ? skills
-    : skills.filter((s) => s.category === activeCategory);
+  // Filter skills based on Domain / Category
+  const filteredSkills =
+    activeCategory === 'All'
+      ? skills
+      : activeCategory === 'Web Development'
+      ? skills.filter(
+          (s) =>
+            s.category === 'Frontend & Web' ||
+            s.category === 'Backend & CRM' ||
+            s.category === 'Web3 & Blockchain'
+        )
+      : activeCategory === 'Android'
+      ? skills.filter((s) => s.category === 'Android & Mobile')
+      : activeCategory === 'Cybersecurity'
+      ? skills.filter((s) => s.category === 'Cyber Security & Network')
+      : activeCategory === 'IT & Systems'
+      ? skills.filter((s) => s.category === 'IT Support & SEO')
+      : skills.filter((s) => s.category === activeCategory);
+
+  // Keep selectedSkill valid when active category changes
+  useEffect(() => {
+    if (filteredSkills.length > 0 && !filteredSkills.some((s) => s.name === selectedSkill.name)) {
+      setSelectedSkill(filteredSkills[0]);
+    }
+  }, [activeCategory, filteredSkills, selectedSkill]);
 
   // 3D rotation state
   const [rotation, setRotation] = useState({ pitch: 0.15, yaw: 0.25 });
@@ -91,8 +112,8 @@ export const Skills3DSphere: React.FC = () => {
     isDraggingRef.current = false;
   };
 
-  // Distinct categories
-  const categories = ['All', 'Frontend & Web', 'Web3 & Blockchain', 'Android & Mobile', 'Backend & CRM', 'IT Support & SEO'];
+  // Distinct categories / domains
+  const categories = ['All', 'Web Development', 'Android', 'Cybersecurity', 'IT & Systems'];
 
   return (
     <div className="w-full bg-[#090C16] rounded-3xl border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-6 sm:p-8 flex flex-col gap-6">

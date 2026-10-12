@@ -28,7 +28,7 @@ export interface ServiceItem {
   title: string;
   description: string;
   features: string[];
-  iconName: 'Globe' | 'Database' | 'Search' | 'Headphones' | 'Smartphone' | 'Cpu' | 'Coins' | 'Blocks' | 'Wallet';
+  iconName: 'Globe' | 'Database' | 'Search' | 'Headphones' | 'Smartphone' | 'Cpu' | 'Coins' | 'Blocks' | 'Wallet' | 'Shield';
 }
 
 export interface AndroidAppItem {
@@ -74,7 +74,7 @@ export interface ProcessStep {
 
 export interface TechnicalSkill {
   name: string;
-  category: 'Frontend & Web' | 'Web3 & Blockchain' | 'Android & Mobile' | 'Backend & CRM' | 'IT Support & SEO';
+  category: 'Frontend & Web' | 'Web3 & Blockchain' | 'Android & Mobile' | 'Backend & CRM' | 'Cyber Security & Network' | 'IT Support & SEO';
   proficiency: number;
   level?: string;
   highlight: string;
@@ -93,12 +93,12 @@ export const PORTFOLIO_DATA: {
 } = {
   personal: {
     name: "Shubham Sauhardra",
-    title: "Website Developer & IT Solutions Provider",
+    title: "Website Developer, Cyber Security & IT Solutions Provider",
     shortBio:
-      "I work on website development, Web3 & blockchain solutions, software and CRM systems, SEO, IT support, Android applications, and AI-based digital solutions. Explore my services and projects to learn more about my work.",
+      "I work on website development, cyber security & network hardening, Web3 & blockchain solutions, software and CRM systems, SEO, IT support, and Android applications. Explore my services and projects to learn more about my work.",
     aboutText: [
-      "I am an independent website developer and IT solutions provider working across web development, Web3 decentralized applications, custom software systems, IT infrastructure support, and digital solutions for businesses, institutions, and startups.",
-      "My work focuses on practical, reliable technology: crafting responsive websites that communicate clearly, engineering Web3 and decentralized user interfaces, building customized CRM tools to simplify daily operations, maintaining stable computer systems, and engineering mobile solutions."
+      "I am an independent website developer, cyber security specialist, and IT solutions provider working across web development, system security & hardening, Web3 decentralized applications, custom software systems, IT infrastructure support, and digital solutions for businesses, institutions, and startups.",
+      "My work focuses on practical, reliable technology: crafting responsive websites that communicate clearly, implementing robust cyber security protocols and vulnerability assessments, engineering Web3 and decentralized user interfaces, building customized CRM tools to simplify daily operations, and maintaining secure computer systems."
     ],
     // Owner verified contact details
     mobileNumber: "+91 7870903071",
@@ -121,6 +121,18 @@ export const PORTFOLIO_DATA: {
         "Performance & website improvements"
       ],
       iconName: "Globe"
+    },
+    {
+      id: "cyber-security",
+      title: "Cyber Security & System Hardening",
+      description: "Vulnerability assessments, network defense, web application security (OWASP Top 10), firewall setup, and data encryption.",
+      features: [
+        "Web application vulnerability assessment & audit (OWASP)",
+        "Network firewall configuration & port analysis (pfSense / IPTables)",
+        "SSL/TLS certificate deployment & data encryption (AES-256)",
+        "Identity & Access Management (MFA, RBAC, Zero-Trust Architecture)"
+      ],
+      iconName: "Shield"
     },
     {
       id: "web3-blockchain",
@@ -542,6 +554,50 @@ export const PORTFOLIO_DATA: {
       highlight: "Clean entity-relationship schemas, foreign key structures, indexing, and scalable record organization."
     },
 
+    // Cyber Security & Network Defense
+    {
+      name: "Vulnerability Assessment & Web App Security (OWASP)",
+      category: "Cyber Security & Network",
+      proficiency: 89,
+      level: "Advanced",
+      highlight: "Web security testing, mitigating OWASP Top 10 risks (SQL injection, XSS, CSRF, SSRF), and security auditing."
+    },
+    {
+      name: "Network Security, Firewalls & Packet Analysis",
+      category: "Cyber Security & Network",
+      proficiency: 88,
+      level: "Advanced",
+      highlight: "Deep packet inspection (Wireshark), firewall policies (pfSense/IPTables), port scanning (Nmap), and network defense."
+    },
+    {
+      name: "Identity & Access Management (IAM & Zero-Trust)",
+      category: "Cyber Security & Network",
+      proficiency: 92,
+      level: "Expert",
+      highlight: "Role-based access control (RBAC), multi-factor authentication (MFA), JWT tokens, and principle of least privilege."
+    },
+    {
+      name: "Data Encryption, SSL/TLS & Key Management",
+      category: "Cyber Security & Network",
+      proficiency: 94,
+      level: "Expert",
+      highlight: "End-to-end data encryption (AES-256, RSA), HTTPS/TLS handshake hardening, cryptographic keys, and secrets hygiene."
+    },
+    {
+      name: "Endpoint Security & Operating System Hardening",
+      category: "Cyber Security & Network",
+      proficiency: 91,
+      level: "Expert",
+      highlight: "Hardening Linux/Windows servers, closing insecure ports, credential protections, and automated security patch routines."
+    },
+    {
+      name: "Security Auditing & Incident Monitoring",
+      category: "Cyber Security & Network",
+      proficiency: 86,
+      level: "Advanced",
+      highlight: "Analyzing system logs, syslog monitoring, intrusion attempt detection, audit compliance, and threat mitigation."
+    },
+
     // IT Support & SEO
     {
       name: "Desktop Diagnostics & Hardware Troubleshooting",
@@ -584,6 +640,13 @@ export const PORTFOLIO_DATA: {
     "VS Code",
     "Android Studio",
     "Git & GitHub",
+    "Wireshark",
+    "Nmap",
+    "Burp Suite",
+    "Kali Linux",
+    "OpenSSL",
+    "pfSense / Firewall",
+    "Cloudflare / WAF",
     "Vite",
     "Tailwind CSS",
     "Postman",

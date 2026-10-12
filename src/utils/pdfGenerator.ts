@@ -214,9 +214,10 @@ export function generatePortfolioPdf(): void {
   doc.line(margin, skillY + 1.5, margin + 58, skillY + 1.5);
   skillY += 5.5;
 
-  // Display 5 major engineering domains with progress bars
+  // Display major engineering domains with progress bars
   const domainSummaries = [
     { name: 'Frontend & Web Development (HTML5, CSS3, React, Tailwind, TypeScript)', pct: 92 },
+    { name: 'Cyber Security & Network Defense (OWASP Top 10, Firewalls, SSL/TLS, Encryption)', pct: 91 },
     { name: 'Web3 & Blockchain Engineering (Web3.js, Ethers.js, MetaMask, dApps, IPFS)', pct: 85 },
     { name: 'Android & Mobile Development (Android Studio, Java/Kotlin, SQLite)', pct: 88 },
     { name: 'Backend & CRM Architecture (Workflows, REST APIs, Business Logic)', pct: 86 },

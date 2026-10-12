@@ -21,10 +21,19 @@ import {
   ShieldCheck,
   TrendingUp,
   Cpu,
-  Monitor
+  Monitor,
+  Shield,
+  Lock
 } from 'lucide-react';
 
-type SkillCategory = 'All' | 'Frontend & Web' | 'Web3 & Blockchain' | 'Android & Mobile' | 'Backend & CRM' | 'IT Support & SEO';
+type SkillCategory =
+  | 'All'
+  | 'Cyber Security & Network'
+  | 'Frontend & Web'
+  | 'Web3 & Blockchain'
+  | 'Android & Mobile'
+  | 'Backend & CRM'
+  | 'IT Support & SEO';
 type VisualizationMode = 'bars' | 'radar' | 'combined';
 
 interface RadarAxis {
@@ -79,6 +88,15 @@ export const SkillVisualization: React.FC = () => {
       score: 92,
       highlight: 'Semantic HTML5, React.js, TypeScript, Tailwind CSS & Responsive UX',
       keyTech: ['React.js', 'TypeScript', 'Tailwind CSS', 'Next-gen HTML5']
+    },
+    {
+      id: 'security',
+      label: 'Cyber Security & Network Defense',
+      shortLabel: 'Cyber Security',
+      category: 'Cyber Security & Network',
+      score: 91,
+      highlight: 'Vulnerability assessment, OWASP Top 10, Firewalls, SSL/TLS & IAM hardening',
+      keyTech: ['OWASP Top 10', 'Wireshark / Nmap', 'Firewalls / pfSense', 'AES-256 / SSL']
     },
     {
       id: 'android',
@@ -180,6 +198,7 @@ export const SkillVisualization: React.FC = () => {
   // Category counts
   const categoryCounts = {
     All: skills.length,
+    'Cyber Security & Network': skills.filter((s) => s.category === 'Cyber Security & Network').length,
     'Frontend & Web': skills.filter((s) => s.category === 'Frontend & Web').length,
     'Web3 & Blockchain': skills.filter((s) => s.category === 'Web3 & Blockchain').length,
     'Android & Mobile': skills.filter((s) => s.category === 'Android & Mobile').length,
@@ -189,6 +208,7 @@ export const SkillVisualization: React.FC = () => {
 
   const categories: { id: SkillCategory; label: string; icon: React.ReactNode }[] = [
     { id: 'All', label: 'All Technologies', icon: <Layers className="w-3.5 h-3.5" /> },
+    { id: 'Cyber Security & Network', label: 'Cyber Security & Network', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
     { id: 'Frontend & Web', label: 'Frontend & Web', icon: <Code2 className="w-3.5 h-3.5" /> },
     { id: 'Web3 & Blockchain', label: 'Web3 & Blockchain', icon: <Coins className="w-3.5 h-3.5" /> },
     { id: 'Android & Mobile', label: 'Android & Mobile', icon: <Smartphone className="w-3.5 h-3.5" /> },
@@ -199,6 +219,8 @@ export const SkillVisualization: React.FC = () => {
   // Helper for Category badge style
   const getCategoryBadge = (category: TechnicalSkill['category']) => {
     switch (category) {
+      case 'Cyber Security & Network':
+        return 'text-emerald-300 bg-emerald-950/60 border-emerald-800/60';
       case 'Frontend & Web':
         return 'text-sky-300 bg-sky-950/60 border-sky-800/60';
       case 'Web3 & Blockchain':
@@ -231,6 +253,8 @@ export const SkillVisualization: React.FC = () => {
   // Map tool to an appropriate icon
   const getToolIcon = (toolName: string) => {
     const lower = toolName.toLowerCase();
+    if (lower.includes('wireshark') || lower.includes('nmap') || lower.includes('burp') || lower.includes('kali') || lower.includes('security') || lower.includes('firewall') || lower.includes('pfsense') || lower.includes('openssl') || lower.includes('cloudflare') || lower.includes('waf') || lower.includes('owasp'))
+      return <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />;
     if (lower.includes('code') || lower.includes('vite')) return <Code2 className="w-3.5 h-3.5 text-sky-400" />;
     if (lower.includes('android')) return <Smartphone className="w-3.5 h-3.5 text-emerald-400" />;
     if (lower.includes('git')) return <FolderGit2 className="w-3.5 h-3.5 text-orange-400" />;
@@ -415,11 +439,11 @@ export const SkillVisualization: React.FC = () => {
                 <h4 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
                   <span>Technical Competency Radar Matrix</span>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 font-semibold">
-                    6-AXIS METRIC
+                    {radarAxes.length}-AXIS METRIC
                   </span>
                 </h4>
                 <p className="text-xs text-slate-400">
-                  Comprehensive multi-dimensional evaluation across engineering architecture, frontend, mobile, dApps, and IT operations.
+                  Comprehensive multi-dimensional evaluation across engineering architecture, cyber security defense, frontend, mobile, dApps, and IT operations.
                 </p>
               </div>
             </div>

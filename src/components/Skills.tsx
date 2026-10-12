@@ -21,10 +21,24 @@ import {
   ShieldCheck,
   TrendingUp,
   Cpu,
-  Monitor
+  Monitor,
+  Shield,
+  Lock,
+  Globe,
+  Info
 } from 'lucide-react';
 
-export type SkillCategory = 'All' | 'Frontend & Web' | 'Web3 & Blockchain' | 'Android & Mobile' | 'Backend & CRM' | 'IT Support & SEO';
+export type PrimaryDomain = 'All' | 'Web Development' | 'Android' | 'Cybersecurity' | 'IT Support';
+
+export type SkillCategory =
+  | 'All'
+  | 'Cyber Security & Network'
+  | 'Frontend & Web'
+  | 'Web3 & Blockchain'
+  | 'Android & Mobile'
+  | 'Backend & CRM'
+  | 'IT Support & SEO';
+
 export type SkillViewMode = 'bars' | 'radar' | 'combined';
 
 interface RadarAxis {
@@ -32,6 +46,7 @@ interface RadarAxis {
   label: string;
   shortLabel: string;
   category: SkillCategory;
+  domain: PrimaryDomain;
   score: number;
   highlight: string;
   keyTech: string[];
@@ -39,7 +54,8 @@ interface RadarAxis {
 
 export const Skills: React.FC = () => {
   const { skills, toolsAndPlatforms } = PORTFOLIO_DATA;
-  const [selectedCategory, setSelectedCategory] = useState<SkillCategory>('All');
+  const [selectedDomain, setSelectedDomain] = useState<PrimaryDomain>('All');
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<SkillViewMode>('bars');
   const [isVisible, setIsVisible] = useState(false);
@@ -76,15 +92,27 @@ export const Skills: React.FC = () => {
       label: 'Frontend & UI Engineering',
       shortLabel: 'Frontend & Web',
       category: 'Frontend & Web',
+      domain: 'Web Development',
       score: 92,
       highlight: 'Semantic HTML5, React.js, TypeScript, Tailwind CSS & Responsive UX',
       keyTech: ['React.js', 'TypeScript', 'Tailwind CSS', 'Next-gen HTML5']
+    },
+    {
+      id: 'security',
+      label: 'Cyber Security & Network Defense',
+      shortLabel: 'Cyber Security',
+      category: 'Cyber Security & Network',
+      domain: 'Cybersecurity',
+      score: 91,
+      highlight: 'Vulnerability assessment, OWASP Top 10, Firewalls, SSL/TLS & IAM hardening',
+      keyTech: ['OWASP Top 10', 'Wireshark / Nmap', 'Firewalls / pfSense', 'AES-256 / SSL']
     },
     {
       id: 'android',
       label: 'Android & Mobile Apps',
       shortLabel: 'Android & Mobile',
       category: 'Android & Mobile',
+      domain: 'Android',
       score: 88,
       highlight: 'Offline-first utilities, Native Android Architecture, PWA & UX',
       keyTech: ['Android SDK', 'Offline Storage', 'PWA', 'Utility Engines']
@@ -94,6 +122,7 @@ export const Skills: React.FC = () => {
       label: 'Web3 & Blockchain dApps',
       shortLabel: 'Web3 & dApps',
       category: 'Web3 & Blockchain',
+      domain: 'Web Development',
       score: 85,
       highlight: 'Decentralized interfaces, Wallet integration, ABI contracts & IPFS',
       keyTech: ['MetaMask / Web3', 'Ethers.js', 'Smart Contract ABI', 'IPFS']
@@ -103,6 +132,7 @@ export const Skills: React.FC = () => {
       label: 'Backend & CRM Systems',
       shortLabel: 'Backend & CRM',
       category: 'Backend & CRM',
+      domain: 'Web Development',
       score: 86,
       highlight: 'RESTful API integration, CRM workflows, SQLite & lead management',
       keyTech: ['Node.js APIs', 'SQLite / DB', 'CRM Architecture', 'Workflow Logic']
@@ -112,6 +142,7 @@ export const Skills: React.FC = () => {
       label: 'IT Support & Systems',
       shortLabel: 'IT Infrastructure',
       category: 'IT Support & SEO',
+      domain: 'IT Support',
       score: 93,
       highlight: 'Hardware diagnosis, OS configuration, troubleshooting & office IT',
       keyTech: ['System Setup', 'OS Troubleshooting', 'Diagnostics', 'Hardware Setup']
@@ -121,10 +152,110 @@ export const Skills: React.FC = () => {
       label: 'Technical SEO & Performance',
       shortLabel: 'SEO & Performance',
       category: 'IT Support & SEO',
+      domain: 'IT Support',
       score: 89,
       highlight: 'Schema.org metadata, Core Web Vitals, speed indexing & on-page SEO',
       keyTech: ['Schema Markup', 'Core Web Vitals', 'Search Console', 'Audit & Speed']
     }
+  ];
+
+  // Helper to determine if a skill matches a given primary domain
+  const isSkillInDomain = (skill: TechnicalSkill, domain: PrimaryDomain): boolean => {
+    switch (domain) {
+      case 'Web Development':
+        return (
+          skill.category === 'Frontend & Web' ||
+          skill.category === 'Backend & CRM' ||
+          skill.category === 'Web3 & Blockchain'
+        );
+      case 'Android':
+        return skill.category === 'Android & Mobile';
+      case 'Cybersecurity':
+        return skill.category === 'Cyber Security & Network';
+      case 'IT Support':
+        return skill.category === 'IT Support & SEO';
+      case 'All':
+      default:
+        return true;
+    }
+  };
+
+  // Domain Counts
+  const domainCounts: Record<PrimaryDomain, number> = {
+    All: skills.length,
+    'Web Development': skills.filter((s) => isSkillInDomain(s, 'Web Development')).length,
+    Android: skills.filter((s) => isSkillInDomain(s, 'Android')).length,
+    Cybersecurity: skills.filter((s) => isSkillInDomain(s, 'Cybersecurity')).length,
+    'IT Support': skills.filter((s) => isSkillInDomain(s, 'IT Support')).length,
+  };
+
+  // Primary Domain Filter definitions
+  const domainFilters: {
+    id: PrimaryDomain;
+    label: string;
+    tagline: string;
+    icon: React.ReactNode;
+    activeBorder: string;
+    activeBg: string;
+    activeText: string;
+    iconColor: string;
+    badgeColor: string;
+  }[] = [
+    {
+      id: 'All',
+      label: 'All Technologies',
+      tagline: 'Complete Engineering Stack',
+      icon: <Layers className="w-4 h-4" />,
+      activeBorder: 'border-sky-400/80',
+      activeBg: 'bg-sky-500/15',
+      activeText: 'text-sky-300',
+      iconColor: 'text-sky-400',
+      badgeColor: 'bg-sky-500/20 text-sky-300 border border-sky-400/30',
+    },
+    {
+      id: 'Web Development',
+      label: 'Web Development',
+      tagline: 'Frontend, React, APIs & Web3',
+      icon: <Code2 className="w-4 h-4" />,
+      activeBorder: 'border-sky-400/80',
+      activeBg: 'bg-sky-500/15',
+      activeText: 'text-sky-300',
+      iconColor: 'text-sky-400',
+      badgeColor: 'bg-sky-500/20 text-sky-300 border border-sky-400/30',
+    },
+    {
+      id: 'Android',
+      label: 'Android',
+      tagline: 'Native SDK, Kotlin & Sensors',
+      icon: <Smartphone className="w-4 h-4" />,
+      activeBorder: 'border-emerald-400/80',
+      activeBg: 'bg-emerald-500/15',
+      activeText: 'text-emerald-300',
+      iconColor: 'text-emerald-400',
+      badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/30',
+    },
+    {
+      id: 'Cybersecurity',
+      label: 'Cybersecurity',
+      tagline: 'OWASP, Firewalls & Encryption',
+      icon: <ShieldCheck className="w-4 h-4" />,
+      activeBorder: 'border-emerald-400/80',
+      activeBg: 'bg-emerald-500/15',
+      activeText: 'text-emerald-300',
+      iconColor: 'text-emerald-400',
+      badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/30',
+    },
+    {
+      id: 'IT Support',
+      label: 'IT & Systems',
+      tagline: 'Diagnostics, OS, Hardening & SEO',
+      icon: <Wrench className="w-4 h-4" />,
+      activeBorder: 'border-amber-400/80',
+      activeBg: 'bg-amber-500/15',
+      activeText: 'text-amber-300',
+      iconColor: 'text-amber-400',
+      badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-400/30',
+    },
   ];
 
   // Animate progress numbers counting up smoothly
@@ -166,39 +297,24 @@ export const Skills: React.FC = () => {
     }, 50);
   };
 
-  // Filter skills based on category and search query
+  // Filter skills based on Domain, SubCategory, and Search Query
   const filteredSkills = skills.filter((skill) => {
-    const matchesCategory =
-      selectedCategory === 'All' || skill.category === selectedCategory;
+    const matchesDomain = isSkillInDomain(skill, selectedDomain);
+    const matchesSubCategory =
+      selectedSubCategory === 'All' || skill.category === selectedSubCategory;
     const matchesSearch =
+      searchQuery.trim() === '' ||
       skill.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       skill.highlight.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (skill.level && skill.level.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
+    return matchesDomain && matchesSubCategory && matchesSearch;
   });
-
-  // Category counts
-  const categoryCounts = {
-    All: skills.length,
-    'Frontend & Web': skills.filter((s) => s.category === 'Frontend & Web').length,
-    'Web3 & Blockchain': skills.filter((s) => s.category === 'Web3 & Blockchain').length,
-    'Android & Mobile': skills.filter((s) => s.category === 'Android & Mobile').length,
-    'Backend & CRM': skills.filter((s) => s.category === 'Backend & CRM').length,
-    'IT Support & SEO': skills.filter((s) => s.category === 'IT Support & SEO').length,
-  };
-
-  const categories: { id: SkillCategory; label: string; icon: React.ReactNode }[] = [
-    { id: 'All', label: 'All Technologies', icon: <Layers className="w-3.5 h-3.5" /> },
-    { id: 'Frontend & Web', label: 'Frontend & Web', icon: <Code2 className="w-3.5 h-3.5" /> },
-    { id: 'Web3 & Blockchain', label: 'Web3 & Blockchain', icon: <Coins className="w-3.5 h-3.5" /> },
-    { id: 'Android & Mobile', label: 'Android & Mobile', icon: <Smartphone className="w-3.5 h-3.5" /> },
-    { id: 'Backend & CRM', label: 'Backend & CRM', icon: <Database className="w-3.5 h-3.5" /> },
-    { id: 'IT Support & SEO', label: 'IT Support & SEO', icon: <Search className="w-3.5 h-3.5" /> },
-  ];
 
   // Helper for Category badge style
   const getCategoryBadge = (category: TechnicalSkill['category']) => {
     switch (category) {
+      case 'Cyber Security & Network':
+        return 'text-emerald-300 bg-emerald-950/60 border-emerald-800/60';
       case 'Frontend & Web':
         return 'text-sky-300 bg-sky-950/60 border-sky-800/60';
       case 'Web3 & Blockchain':
@@ -231,6 +347,20 @@ export const Skills: React.FC = () => {
   // Map tool to an appropriate icon
   const getToolIcon = (toolName: string) => {
     const lower = toolName.toLowerCase();
+    if (
+      lower.includes('wireshark') ||
+      lower.includes('nmap') ||
+      lower.includes('burp') ||
+      lower.includes('kali') ||
+      lower.includes('security') ||
+      lower.includes('firewall') ||
+      lower.includes('pfsense') ||
+      lower.includes('openssl') ||
+      lower.includes('cloudflare') ||
+      lower.includes('waf') ||
+      lower.includes('owasp')
+    )
+      return <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />;
     if (lower.includes('code') || lower.includes('vite')) return <Code2 className="w-3.5 h-3.5 text-sky-400" />;
     if (lower.includes('android')) return <Smartphone className="w-3.5 h-3.5 text-emerald-400" />;
     if (lower.includes('git')) return <FolderGit2 className="w-3.5 h-3.5 text-orange-400" />;
@@ -280,6 +410,32 @@ export const Skills: React.FC = () => {
     })
     .join(' ');
 
+  // Compute sub-categories available under the selected domain
+  const getAvailableSubCategories = () => {
+    if (selectedDomain === 'Web Development') {
+      return [
+        { id: 'All', label: 'All Web Stack', count: domainCounts['Web Development'] },
+        { id: 'Frontend & Web', label: 'Frontend & UI', count: skills.filter((s) => s.category === 'Frontend & Web').length },
+        { id: 'Backend & CRM', label: 'Backend & APIs', count: skills.filter((s) => s.category === 'Backend & CRM').length },
+        { id: 'Web3 & Blockchain', label: 'Web3 & dApps', count: skills.filter((s) => s.category === 'Web3 & Blockchain').length },
+      ];
+    }
+    if (selectedDomain === 'All') {
+      return [
+        { id: 'All', label: 'All Disciplines', count: skills.length },
+        { id: 'Frontend & Web', label: 'Frontend & Web', count: skills.filter((s) => s.category === 'Frontend & Web').length },
+        { id: 'Android & Mobile', label: 'Android & Mobile', count: skills.filter((s) => s.category === 'Android & Mobile').length },
+        { id: 'Cyber Security & Network', label: 'Cyber Security', count: skills.filter((s) => s.category === 'Cyber Security & Network').length },
+        { id: 'Backend & CRM', label: 'Backend & CRM', count: skills.filter((s) => s.category === 'Backend & CRM').length },
+        { id: 'Web3 & Blockchain', label: 'Web3 & Blockchain', count: skills.filter((s) => s.category === 'Web3 & Blockchain').length },
+        { id: 'IT Support & SEO', label: 'IT Support & SEO', count: skills.filter((s) => s.category === 'IT Support & SEO').length },
+      ];
+    }
+    return [];
+  };
+
+  const availableSubCategories = getAvailableSubCategories();
+
   return (
     <div
       id="skills"
@@ -297,7 +453,7 @@ export const Skills: React.FC = () => {
             Skills &amp; Technology Stack
           </h3>
           <p className="text-sm text-slate-400 mt-1.5 max-w-2xl">
-            Demonstrated technical proficiency across modern web interfaces, Android applications, custom CRM systems, and IT support operations.
+            Demonstrated technical proficiency across Web Development, native Android applications, Cybersecurity &amp; network defense, and systems operations.
           </p>
         </div>
 
@@ -356,7 +512,7 @@ export const Skills: React.FC = () => {
       </div>
 
       {/* Summary Stat Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-7">
         <div className="p-4 rounded-xl bg-[#0D1222]/90 border border-white/[0.07] flex flex-col justify-between hover:border-sky-500/30 transition-all">
           <span className="text-xs font-mono text-slate-400 uppercase tracking-wide">
             Core Technologies
@@ -372,8 +528,8 @@ export const Skills: React.FC = () => {
             Engineering Domains
           </span>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">6</span>
-            <span className="text-xs text-emerald-400 font-semibold">Specialized Areas</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">4</span>
+            <span className="text-xs text-emerald-400 font-semibold">Web, Android, Security &amp; IT</span>
           </div>
         </div>
 
@@ -401,6 +557,116 @@ export const Skills: React.FC = () => {
       </div>
 
       {/* ============================================================== */}
+      {/* PRIMARY FILTER SYSTEM (Toggle between Web Development, Android, Cybersecurity) */}
+      {/* ============================================================== */}
+      <div className="mb-8 p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-[#090D1A]/95 via-[#080B15]/95 to-[#0A0E1C]/95 border border-white/[0.09] shadow-xl backdrop-blur-md">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3 px-1">
+          <div className="flex items-center gap-2">
+            <SlidersHorizontal className="w-4 h-4 text-sky-400" />
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+              Filter by Engineering Domain
+            </span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-300 border border-sky-500/20 font-semibold">
+              Interactive View Toggle
+            </span>
+          </div>
+          <span className="text-[11px] font-mono text-slate-400">
+            {selectedDomain === 'All'
+              ? `Showing all ${skills.length} skills across all domains`
+              : `Active filter: ${selectedDomain} (${domainCounts[selectedDomain]} skills)`}
+          </span>
+        </div>
+
+        {/* The Domain Filter Toggle Buttons */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2">
+          {domainFilters.map((domain) => {
+            const isActive = selectedDomain === domain.id;
+            return (
+              <button
+                key={domain.id}
+                type="button"
+                onClick={() => {
+                  setSelectedDomain(domain.id);
+                  setSelectedSubCategory('All');
+                }}
+                className={`group relative flex flex-col p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? `${domain.activeBorder} ${domain.activeBg} ${domain.activeText} shadow-md`
+                    : 'bg-[#0B101E]/70 border-white/[0.06] text-slate-400 hover:text-white hover:bg-[#11172B] hover:border-white/[0.12]'
+                }`}
+              >
+                <div className="flex items-center justify-between gap-1.5 mb-1">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className={isActive ? domain.iconColor : 'text-slate-400 group-hover:text-white'}>
+                      {domain.icon}
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold tracking-tight truncate">
+                      {domain.label}
+                    </span>
+                  </div>
+                  <span
+                    className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-full shrink-0 ${
+                      isActive ? domain.badgeColor : 'bg-white/[0.06] text-slate-400'
+                    }`}
+                  >
+                    {domainCounts[domain.id]}
+                  </span>
+                </div>
+                <span className="text-[10px] text-slate-500 group-hover:text-slate-400 leading-tight truncate">
+                  {domain.tagline}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Domain Information Strip */}
+        <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 text-xs">
+          <div className="flex items-center gap-2 text-slate-400 text-[11px]">
+            <Info className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+            {selectedDomain === 'Web Development' && (
+              <span>
+                <strong className="text-sky-300">Web Development View:</strong> Modern responsive interfaces (React, TypeScript, Tailwind), backend REST APIs &amp; CRM pipelines, and Web3 blockchain dApps.
+              </span>
+            )}
+            {selectedDomain === 'Android' && (
+              <span>
+                <strong className="text-emerald-300">Android View:</strong> Native Android SDK, Java/Kotlin development, touch ergonomics, sensor automation (PhoneRaksha), and offline SQLite ledgers.
+              </span>
+            )}
+            {selectedDomain === 'Cybersecurity' && (
+              <span>
+                <strong className="text-emerald-300">Cybersecurity View:</strong> OWASP vulnerability defense, firewall &amp; packet inspection (Wireshark/Nmap), IAM zero-trust, TLS/SSL encryption &amp; system hardening.
+              </span>
+            )}
+            {selectedDomain === 'IT Support' && (
+              <span>
+                <strong className="text-amber-300">IT &amp; Systems View:</strong> Hardware troubleshooting, Linux/Windows operating system administration, routine maintenance, and technical SEO structure.
+              </span>
+            )}
+            {selectedDomain === 'All' && (
+              <span>
+                <strong className="text-sky-300">Unified Stack View:</strong> Use the buttons above to filter by <strong>Web Development</strong>, <strong>Android</strong>, or <strong>Cybersecurity</strong>.
+              </span>
+            )}
+          </div>
+
+          {selectedDomain !== 'All' && (
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedDomain('All');
+                setSelectedSubCategory('All');
+              }}
+              className="text-[11px] font-mono text-sky-400 hover:text-sky-300 underline self-start sm:self-auto shrink-0 cursor-pointer"
+            >
+              Show All Technologies
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* ============================================================== */}
       {/* RADAR CHART VIEW (Shown in 'radar' or 'combined' mode) */}
       {/* ============================================================== */}
       {(viewMode === 'radar' || viewMode === 'combined') && (
@@ -415,18 +681,18 @@ export const Skills: React.FC = () => {
                 <h4 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
                   <span>Technical Competency Radar Matrix</span>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 font-semibold">
-                    6-AXIS METRIC
+                    {radarAxes.length}-AXIS METRIC
                   </span>
                 </h4>
                 <p className="text-xs text-slate-400">
-                  Comprehensive multi-dimensional evaluation across engineering architecture, frontend, mobile, dApps, and IT operations.
+                  Comprehensive multi-dimensional evaluation across engineering architecture, cyber security defense, frontend, mobile, dApps, and IT operations.
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
               <span className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping inline-block" />
-              <span>Interactive Spider Chart (Hover nodes for details)</span>
+              <span>Interactive Spider Chart (Click nodes to filter progress bars)</span>
             </div>
           </div>
 
@@ -523,6 +789,7 @@ export const Skills: React.FC = () => {
                     const p = getPoint(i, percentage);
                     const labelPoint = getPoint(i, 1.18);
                     const isHovered = hoveredAxis?.id === axis.id;
+                    const isDomainActive = selectedDomain === 'All' || selectedDomain === axis.domain;
 
                     return (
                       <g
@@ -531,7 +798,8 @@ export const Skills: React.FC = () => {
                         onMouseEnter={() => setHoveredAxis(axis)}
                         onMouseLeave={() => setHoveredAxis(null)}
                         onClick={() => {
-                          setSelectedCategory(axis.category);
+                          setSelectedDomain(axis.domain);
+                          setSelectedSubCategory(axis.category);
                           if (viewMode === 'radar') setViewMode('bars');
                         }}
                       >
@@ -539,8 +807,8 @@ export const Skills: React.FC = () => {
                         <circle
                           cx={p.x}
                           cy={p.y}
-                          r={isHovered ? 8 : 5}
-                          fill="#38bdf8"
+                          r={isHovered ? 8 : isDomainActive ? 6 : 4}
+                          fill={isDomainActive ? '#38bdf8' : '#64748b'}
                           className="transition-all duration-300 shadow-lg"
                         />
                         <circle
@@ -550,7 +818,7 @@ export const Skills: React.FC = () => {
                           fill="none"
                           stroke="#38bdf8"
                           strokeWidth="1.5"
-                          opacity={isHovered ? 0.9 : 0.3}
+                          opacity={isHovered ? 0.9 : isDomainActive ? 0.4 : 0.15}
                           className="transition-all duration-300"
                         />
 
@@ -559,9 +827,9 @@ export const Skills: React.FC = () => {
                           x={labelPoint.x}
                           y={labelPoint.y + (labelPoint.y > cy ? 8 : -2)}
                           textAnchor={labelPoint.x > cx + 10 ? 'start' : labelPoint.x < cx - 10 ? 'end' : 'middle'}
-                          fill={isHovered ? '#38bdf8' : '#cbd5e1'}
+                          fill={isHovered || isDomainActive ? '#38bdf8' : '#94a3b8'}
                           fontSize="11"
-                          fontWeight={isHovered ? 'bold' : '600'}
+                          fontWeight={isHovered || isDomainActive ? 'bold' : '600'}
                           fontFamily="sans-serif"
                           className="transition-colors duration-200 select-none"
                         >
@@ -587,7 +855,7 @@ export const Skills: React.FC = () => {
               </div>
 
               <span className="text-[11px] text-slate-500 font-mono mt-2">
-                Click any node to filter corresponding progress bars
+                Click any axis node to filter detailed skills below
               </span>
             </div>
 
@@ -595,11 +863,12 @@ export const Skills: React.FC = () => {
             <div className="lg:col-span-6 space-y-3">
               <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center justify-between">
                 <span>Domain Mastery Breakdown</span>
-                <span className="text-sky-400">Click to filter detailed skills</span>
+                <span className="text-sky-400">Click card to filter progress bars</span>
               </div>
 
               {radarAxes.map((axis) => {
                 const isHovered = hoveredAxis?.id === axis.id;
+                const isDomainActive = selectedDomain === 'All' || selectedDomain === axis.domain;
 
                 return (
                   <div
@@ -607,13 +876,16 @@ export const Skills: React.FC = () => {
                     onMouseEnter={() => setHoveredAxis(axis)}
                     onMouseLeave={() => setHoveredAxis(null)}
                     onClick={() => {
-                      setSelectedCategory(axis.category);
+                      setSelectedDomain(axis.domain);
+                      setSelectedSubCategory(axis.category);
                       if (viewMode === 'radar') setViewMode('bars');
                     }}
                     className={`p-3.5 rounded-xl border transition-all duration-200 cursor-pointer ${
                       isHovered
                         ? 'bg-[#12182E] border-sky-400/60 shadow-[0_0_16px_rgba(56,189,248,0.2)]'
-                        : 'bg-[#090D1A]/90 border-white/[0.07] hover:border-sky-500/30'
+                        : isDomainActive
+                        ? 'bg-[#090D1A]/95 border-sky-500/30'
+                        : 'bg-[#090D1A]/60 border-white/[0.05] opacity-70 hover:opacity-100'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-3 mb-1.5">
@@ -622,7 +894,7 @@ export const Skills: React.FC = () => {
                           {axis.label}
                         </span>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 font-semibold">
-                          {axis.score >= 90 ? 'Expert' : 'Advanced'}
+                          {axis.domain}
                         </span>
                       </div>
                       <span className="text-base font-extrabold font-mono text-sky-400">
@@ -666,44 +938,49 @@ export const Skills: React.FC = () => {
       {/* ============================================================== */}
       {(viewMode === 'bars' || viewMode === 'combined') && (
         <>
-          {/* Filter Tabs & Search Bar */}
+          {/* Sub-Category Filters & Search Bar */}
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 mb-7">
-            {/* Category Tabs */}
+            {/* Sub-Category Filter Chips */}
             <div className="flex flex-wrap items-center gap-1.5 p-1 bg-[#090D18] rounded-xl border border-white/[0.08]">
-              {categories.map((cat) => {
-                const isActive = selectedCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                      isActive
-                        ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/20'
-                        : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
-                    }`}
-                  >
-                    {cat.icon}
-                    <span>{cat.label}</span>
-                    <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
-                        isActive ? 'bg-black/30 text-white' : 'bg-white/10 text-slate-300'
+              {availableSubCategories.length > 0 ? (
+                availableSubCategories.map((sub) => {
+                  const isActive = selectedSubCategory === sub.id;
+                  return (
+                    <button
+                      key={sub.id}
+                      onClick={() => setSelectedSubCategory(sub.id)}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/20'
+                          : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                       }`}
                     >
-                      {categoryCounts[cat.id]}
-                    </span>
-                  </button>
-                );
-              })}
+                      <span>{sub.label}</span>
+                      <span
+                        className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                          isActive ? 'bg-black/30 text-white' : 'bg-white/10 text-slate-300'
+                        }`}
+                      >
+                        {sub.count}
+                      </span>
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="px-3 py-1.5 text-xs font-mono text-slate-400">
+                  <span>Filtered to: <strong className="text-white">{selectedDomain}</strong> ({filteredSkills.length} skills)</span>
+                </div>
+              )}
             </div>
 
             {/* Search Input */}
-            <div className="relative min-w-[220px]">
+            <div className="relative min-w-[240px]">
               <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search technology or tool..."
+                placeholder={`Search in ${selectedDomain === 'All' ? 'all technologies' : selectedDomain}...`}
                 className="w-full pl-9 pr-3.5 py-1.5 text-xs rounded-xl bg-[#090D18] border border-white/[0.08] text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition-all"
               />
             </div>
@@ -713,16 +990,17 @@ export const Skills: React.FC = () => {
           {filteredSkills.length === 0 ? (
             <div className="py-12 text-center bg-[#0D1222]/60 rounded-2xl border border-dashed border-white/[0.08]">
               <SlidersHorizontal className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-              <p className="text-sm font-semibold text-slate-300">No skills match your filter.</p>
+              <p className="text-sm font-semibold text-slate-300">No skills match your filter or search query.</p>
               <p className="text-xs text-slate-500 mt-1">Try clearing your search query or selecting &quot;All Technologies&quot;.</p>
               <button
                 onClick={() => {
-                  setSelectedCategory('All');
+                  setSelectedDomain('All');
+                  setSelectedSubCategory('All');
                   setSearchQuery('');
                 }}
                 className="mt-3 px-3.5 py-1.5 text-xs font-semibold text-sky-400 hover:text-sky-300 underline cursor-pointer"
               >
-                Reset Filters
+                Reset All Filters
               </button>
             </div>
           ) : (
@@ -750,8 +1028,8 @@ export const Skills: React.FC = () => {
                             {skill.level && (
                               <span
                                 className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${getLevelBadge(
-                                skill.level
-                              )}`}
+                                  skill.level
+                                )}`}
                               >
                                 {skill.level}
                               </span>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { PORTFOLIO_DATA } from '../config/portfolioData';
-import { Monitor, Cpu, Shield, CheckCircle2, Coins } from 'lucide-react';
+import { Monitor, Cpu, Shield, ShieldCheck, CheckCircle2, Coins } from 'lucide-react';
 import { Skills } from './Skills';
 import { Skills3DSphere } from './Skills3DSphere';
+import { SecurityTipOfTheDay } from './SecurityTipOfTheDay';
 import { ScrollReveal } from './ScrollReveal';
 import { Card3D } from './Card3D';
 
@@ -130,6 +131,18 @@ export const About: React.FC = () => {
                   </div>
 
                   <div className="flex gap-3.5">
+                    <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-white">Cyber Security &amp; Defense</h4>
+                      <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                        Vulnerability assessment, network firewall configuration, OWASP Top 10 mitigation, and cryptographic data protection.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3.5">
                     <div className="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
                       <Shield className="w-4 h-4" />
                     </div>
@@ -163,6 +176,11 @@ export const About: React.FC = () => {
         {/* Skills Component (Progress Bars or Radar Chart) */}
         <ScrollReveal direction="up" distance={24} delay={200}>
           <Skills />
+        </ScrollReveal>
+
+        {/* Security Tip of the Day (Non-intrusive Cybersecurity Best Practice Widget) */}
+        <ScrollReveal direction="up" distance={20} delay={220} className="mt-10">
+          <SecurityTipOfTheDay />
         </ScrollReveal>
       </div>
     </section>
