@@ -71,16 +71,28 @@ export const Hero: React.FC = () => {
               </a>
             </div>
 
-            {/* Quiet capability note */}
-            <div className="pt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400 font-mono">
-              <span className="text-sky-400">●</span>
-              <span>Web Development</span>
-              <span>·</span>
-              <span>Web3 &amp; Blockchain</span>
-              <span>·</span>
-              <span>Android Apps</span>
-              <span>·</span>
-              <span>CRM &amp; IT Solutions</span>
+            {/* Core Expertise Strip */}
+            <div className="pt-2">
+              <div className="inline-flex flex-wrap items-center gap-x-2 gap-y-1.5 p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-slate-300">
+                <span className="font-bold text-sky-400 uppercase tracking-wider text-[11px] flex items-center gap-1.5 mr-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                  Core Expertise:
+                </span>
+                {personal.coreExpertise ? (
+                  personal.coreExpertise.map((item, idx) => (
+                    <React.Fragment key={item}>
+                      <span className="text-slate-200 font-medium hover:text-sky-300 transition-colors">
+                        {item}
+                      </span>
+                      {idx < personal.coreExpertise!.length - 1 && (
+                        <span className="text-sky-500/60 font-bold">•</span>
+                      )}
+                    </React.Fragment>
+                  ))
+                ) : (
+                  <span>Web Development • Cybersecurity • Web3 • Software &amp; CRM Development • IT Support • Digital Solutions</span>
+                )}
+              </div>
             </div>
           </ScrollReveal>
 

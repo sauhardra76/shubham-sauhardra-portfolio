@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-              Professional website development, custom software &amp; CRM solutions, IT infrastructure support, Android applications, and workflow automation.
+              Independent IT professional delivering secure, scalable, and efficient technology solutions across Web Development, Cybersecurity, Web3, Software &amp; CRM Systems, and IT Infrastructure Support.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-2.5">

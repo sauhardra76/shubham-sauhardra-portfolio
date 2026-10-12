@@ -8,12 +8,20 @@ export const DeveloperProfileCard: React.FC = () => {
   const { logoUrl } = useCustomLogo();
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`// Shubham Sauhardra - Full-Stack & Android Specialist
+    navigator.clipboard.writeText(`// Shubham Sauhardra - Independent IT Professional
 const engineer = {
   name: "Shubham Sauhardra",
-  title: "Software Developer & IT Consultant",
-  experience: "Enterprise Full-Stack & Native Android",
-  stack: ["TypeScript", "React", "Next.js", "Kotlin", "Node.js", "PostgreSQL", "Docker"],
+  title: "Independent IT Professional",
+  focus: "Web Development • Cybersecurity • Web3 • Software & CRM Development",
+  philosophy: "Code quality, system reliability, security, and continuous improvement",
+  coreExpertise: [
+    "Web Development",
+    "Cybersecurity",
+    "Web3 Solutions",
+    "Software & CRM Development",
+    "IT Support",
+    "Digital Solutions"
+  ],
   availability: "Available for Projects & Contracts"
 };`);
     setCopied(true);
@@ -109,18 +117,18 @@ const engineer = {
                   </span>
                 </div>
                 <span className="text-slate-400 text-[10px] block truncate">
-                  Full-Stack &amp; Android Specialist
+                  Independent IT Professional
                 </span>
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <p className="text-slate-500">// Enterprise Software Engineer Spec</p>
+              <p className="text-slate-500">// Independent IT Professional Spec</p>
               <p>
                 <span className="text-purple-400">export const </span>
                 <span className="text-blue-300">engineer</span>
                 <span className="text-slate-300">: </span>
-                <span className="text-sky-300">SoftwareEngineer</span>
+                <span className="text-sky-300">ITProfessional</span>
                 <span className="text-slate-300"> = {'{'}</span>
               </p>
               <div className="pl-4 space-y-1">
@@ -129,8 +137,8 @@ const engineer = {
                 <span className="text-emerald-300">"Shubham Sauhardra"</span>,
               </p>
               <p>
-                <span className="text-slate-400">title:</span>{' '}
-                <span className="text-emerald-300">"Full-Stack Web &amp; Android Specialist"</span>,
+                <span className="text-slate-400">role:</span>{' '}
+                <span className="text-emerald-300">"Independent IT Professional"</span>,
               </p>
               <p>
                 <span className="text-slate-400">location:</span>{' '}
@@ -145,19 +153,20 @@ const engineer = {
                 ,
               </p>
               <p>
-                <span className="text-slate-400">coreDomains:</span> [
+                <span className="text-slate-400">coreExpertise:</span> [
               </p>
               <div className="pl-4 space-y-0.5 text-amber-300">
-                <p>"Modern Web &amp; SaaS Systems",</p>
-                <p>"Cyber Security &amp; Network Defense",</p>
-                <p>"Native Android Architecture",</p>
-                <p>"Enterprise CRM &amp; Automation",</p>
-                <p>"Web3 / Smart Contract Integration"</p>
+                <p>"Web Development",</p>
+                <p>"Cybersecurity",</p>
+                <p>"Web3 Solutions",</p>
+                <p>"Software &amp; CRM Development",</p>
+                <p>"IT Support",</p>
+                <p>"Digital Solutions"</p>
               </div>
               <p className="text-slate-400">],</p>
               <p>
-                <span className="text-slate-400">codePhilosophy:</span>{' '}
-                <span className="text-sky-300">"Robust architecture, zero bloat, high ROI"</span>
+                <span className="text-slate-400">coreValues:</span>{' '}
+                <span className="text-sky-300">"Code quality, system reliability, security, continuous improvement"</span>
               </p>
             </div>
             <p className="text-slate-300">{'};'}</p>

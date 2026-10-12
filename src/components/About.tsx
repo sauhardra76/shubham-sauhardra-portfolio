@@ -27,13 +27,38 @@ export const About: React.FC = () => {
             About Me
           </h2>
           <p className="mt-3 text-slate-400 text-base sm:text-lg">
-            Engineering solid digital foundations across modern web, Web3 interfaces, Android apps, and custom software systems.
+            Independent IT professional delivering secure, scalable, and efficient technology solutions tailored to business requirements.
           </p>
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left: Honest Bio Paragraphs */}
+          {/* Left: Bio Paragraphs & Core Expertise */}
           <ScrollReveal direction="up" distance={24} delay={100} className="lg:col-span-7 space-y-5 text-slate-300 leading-relaxed text-base">
+            {/* Core Expertise Visual Badge Bar */}
+            <div className="p-3 rounded-xl bg-[#0B1020]/90 border border-white/[0.08] shadow-inner">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-sky-400 block mb-2">
+                Core Expertise Domains
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  'Web Development',
+                  'Cybersecurity',
+                  'Web3 Solutions',
+                  'Software & CRM Development',
+                  'IT Support',
+                  'Digital Solutions'
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-white/[0.04] text-slate-200 border border-white/[0.08] hover:border-sky-500/40 hover:text-white transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             {personal.aboutText.map((paragraph, index) => (
               <p key={index} className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
                 {paragraph}
@@ -41,40 +66,40 @@ export const About: React.FC = () => {
             ))}
 
             <p className="text-slate-300 leading-relaxed">
-              Whether you are an established business looking to upgrade your digital presence, a startup building specialized mobile software, or an organization needing ongoing technical assistance, I emphasize clean code, direct communication, and dependable results.
+              Whether you are an established business looking to upgrade your digital infrastructure, a startup building specialized web or mobile software, or an organization needing ongoing technical support and security auditing, I emphasize code quality, system reliability, security, and continuous improvement.
             </p>
 
-            {/* Core Values / Work Principles (Realistic, unexaggerated) */}
-            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            {/* Core Values / Work Principles */}
+            <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0D1222]/90 border border-white/[0.07] hover:border-sky-500/30 transition-all">
                 <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                 <div className="text-xs">
-                  <span className="font-bold text-white block mb-0.5">Transparent Communication</span>
-                  <span className="text-slate-400">Direct updates without jargon or confusing terminology.</span>
+                  <span className="font-bold text-white block mb-0.5">Code Quality</span>
+                  <span className="text-slate-400">Clean, modular, standards-compliant code built for maintainability.</span>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0D1222]/90 border border-white/[0.07] hover:border-emerald-500/30 transition-all">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <div className="text-xs">
+                  <span className="font-bold text-white block mb-0.5">System Reliability</span>
+                  <span className="text-slate-400">Durable architecture, graceful error recovery, and high uptime.</span>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0D1222]/90 border border-white/[0.07] hover:border-emerald-500/30 transition-all">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <div className="text-xs">
+                  <span className="font-bold text-white block mb-0.5">Security &amp; Hardening</span>
+                  <span className="text-slate-400">Zero-trust principles, OWASP defenses, and encrypted data channels.</span>
                 </div>
               </div>
 
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0D1222]/90 border border-white/[0.07] hover:border-sky-500/30 transition-all">
                 <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                 <div className="text-xs">
-                  <span className="font-bold text-white block mb-0.5">Clean &amp; Maintainable Code</span>
-                  <span className="text-slate-400">Built to be durable, editable, and easy to maintain.</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0D1222]/90 border border-white/[0.07] hover:border-sky-500/30 transition-all">
-                <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                <div className="text-xs">
-                  <span className="font-bold text-white block mb-0.5">Client-Centric Solutions</span>
-                  <span className="text-slate-400">Focused on solving your practical operational needs.</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0D1222]/90 border border-white/[0.07] hover:border-sky-500/30 transition-all">
-                <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                <div className="text-xs">
-                  <span className="font-bold text-white block mb-0.5">End-to-End Reliability</span>
-                  <span className="text-slate-400">From initial requirement analysis through post-launch care.</span>
+                  <span className="font-bold text-white block mb-0.5">Continuous Improvement</span>
+                  <span className="text-slate-400">Iterative refinement, automated testing, and technical growth.</span>
                 </div>
               </div>
             </div>

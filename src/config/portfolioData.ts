@@ -14,6 +14,7 @@ export interface PersonalInfo {
   title: string;
   shortBio: string;
   aboutText: string[];
+  coreExpertise?: string[];
   // Contact details - leave empty until provided by the owner
   mobileNumber: string; // e.g. "+91 9876543210"
   email: string; // e.g. "shubham@example.com"
@@ -93,12 +94,20 @@ export const PORTFOLIO_DATA: {
 } = {
   personal: {
     name: "Shubham Sauhardra",
-    title: "Website Developer, Cyber Security & IT Solutions Provider",
+    title: "Independent IT Professional · Web Development, Cybersecurity & Web3",
     shortBio:
-      "I work on website development, cyber security & network hardening, Web3 & blockchain solutions, software and CRM systems, SEO, IT support, and Android applications. Explore my services and projects to learn more about my work.",
+      "I am an independent IT professional specializing in Web Development, Cybersecurity, Web3 Solutions, Custom Software Development, CRM Systems, and IT Infrastructure Support. I deliver secure, scalable, and efficient technology solutions tailored to business requirements, with a strong focus on code quality, system reliability, security, and continuous improvement.",
     aboutText: [
-      "I am an independent website developer, cyber security specialist, and IT solutions provider working across web development, system security & hardening, Web3 decentralized applications, custom software systems, IT infrastructure support, and digital solutions for businesses, institutions, and startups.",
-      "My work focuses on practical, reliable technology: crafting responsive websites that communicate clearly, implementing robust cyber security protocols and vulnerability assessments, engineering Web3 and decentralized user interfaces, building customized CRM tools to simplify daily operations, and maintaining secure computer systems."
+      "I am an independent IT professional specializing in Web Development, Cybersecurity, Web3 Solutions, Custom Software Development, CRM Systems, and IT Infrastructure Support. I deliver secure, scalable, and efficient technology solutions tailored to business requirements, with a strong focus on code quality, system reliability, security, and continuous improvement.",
+      "With hands-on proficiency across modern web frameworks, Web3 decentralized architectures, Android mobile applications, custom CRM platforms, and network security hardening, I partner with businesses and organizations to build technology that is durable, maintainable, and aligned with practical operational objectives."
+    ],
+    coreExpertise: [
+      "Web Development",
+      "Cybersecurity",
+      "Web3",
+      "Software & CRM Development",
+      "IT Support",
+      "Digital Solutions"
     ],
     // Owner verified contact details
     mobileNumber: "+91 7870903071",
